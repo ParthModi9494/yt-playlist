@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Playlist Details</title>
+    <link rel="stylesheet" href="./app.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-container">
+        <form action="/playlist" method="post">
+          <h1
+            class="title is-1 has-text-warning animate__animated animate__fadeInDown"
+          >
+            Get YouTube Playlist Details
+          </h1>
+
+          <div class="field">
+            <p class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="Enter Playlist Id"
+                name="playlistId"
+                id="playlistId"
+              />
+            </p>
+          </div>
+          <div class="field">
+            <p class="control">
+              <button class="button is-warning" type="submit">
+                Get Details
+              </button>
+            </p>
+          </div>
+
+          <div class="field">
+            <p class="has-text-white">Playlist ID is located at...</p>
+            <img src="./ex.png" alt="" />
+          </div>
+
+          <div class="field">
+            <p
+              class="control has-text-warning animate__animated animate__headShake"
+            >
+              <% if(error){ %> <%= error %> <% }%>
+            </p>
+          </div>
+        </form>
+      </div>
+
+      <% if (playlistDetails) { %>
+      <h1
+        class="title is-1 has-text-warning animate__animated animate__fadeInDown"
+      >
+        Playlist Details
+      </h1>
+      <table
+        class="table is-bordered is-striped is-fullwidth animate__animated animate__fadeInUp"
+      >
+        <thead>
+          <tr>
+            <th>Sr.</th>
+            <th>Title</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% playlistDetails.forEach( (playlistItem,index) => { %>
+          <tr>
+            <td><%= (index+1) %></td>
+            <td><%= playlistItem.title %></td>
+            <td>
+              <a href="<%= playlistItem.shortUrl %>" target="_blank"
+                ><%= playlistItem.shortUrl %></a
+              >
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+    </div>
+  </body>
+</html>
